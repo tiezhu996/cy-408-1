@@ -18,10 +18,10 @@ export function CompanyPoolPage() {
     navigate(`/contacts/${contactId}`);
   };
 
-  const renderContactItem = (pool: CompanyPool) => (
+  const renderReferralItem = (pool: CompanyPool) => (
     <Row gutter={[16, 16]} className="contact-list">
       {pool.contactReferrals.map(({ contact, referral }) => (
-        <Col span={12} key={contact.id}>
+        <Col span={12} key={referral.id}>
           <Card
             className="soft-card contact-item"
             hoverable
@@ -38,7 +38,7 @@ export function CompanyPoolPage() {
                   {contact.name}
                 </Typography.Title>
                 <Typography.Text type="secondary">
-                  {contact.position}
+                  {contact.company} · {contact.position}
                 </Typography.Text>
                 <div className="tag-row">
                   {contact.tags.slice(0, 3).map((tag) => (
@@ -47,25 +47,19 @@ export function CompanyPoolPage() {
                 </div>
               </Col>
               <Col>
-                {referral ? (
-                  <StatusBadge status={referral.status} />
-                ) : (
-                  <Tag color="default">待内推</Tag>
-                )}
+                <StatusBadge status={referral.status} />
               </Col>
             </Row>
-            {referral && (
-              <div className="referral-info">
-                <Typography.Text type="secondary">
-                  目标职位：{referral.targetPosition}
+            <div className="referral-info">
+              <Typography.Text type="secondary">
+                目标职位：{referral.targetPosition}
+              </Typography.Text>
+              {referral.feedback.length > 0 && (
+                <Typography.Text type="secondary" className="feedback-preview">
+                  最新反馈：{referral.feedback[referral.feedback.length - 1].content}
                 </Typography.Text>
-                {referral.feedback.length > 0 && (
-                  <Typography.Text type="secondary" className="feedback-preview">
-                    最新反馈：{referral.feedback[referral.feedback.length - 1].content}
-                  </Typography.Text>
-                )}
-              </div>
-            )}
+              )}
+            </div>
           </Card>
         </Col>
       ))}
@@ -81,11 +75,11 @@ export function CompanyPoolPage() {
         </Typography.Title>
         <div className="panel-stats">
           <Statistic title="联系人" value={pool.contactCount} />
-          <Statistic title="内推中" value={pool.referralCount} />
+          <Statistic title="内推数" value={pool.referralCount} />
         </div>
       </div>
     ),
-    children: renderContactItem(pool)
+    children: renderReferralItem(pool)
   }));
 
   return (
@@ -93,12 +87,12 @@ export function CompanyPoolPage() {
       <Row gutter={16}>
         <Col span={8}>
           <Card className="soft-card">
-            <Statistic title="公司总数" value={pools.length} />
+            <Statistic title="目标公司总数" value={pools.length} />
           </Card>
         </Col>
         <Col span={8}>
           <Card className="soft-card">
-            <Statistic title="联系人总数" value={totalContacts} />
+            <Statistic title="涉及联系人" value={totalContacts} />
           </Card>
         </Col>
         <Col span={8}>

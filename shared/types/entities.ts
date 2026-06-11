@@ -2,7 +2,7 @@ import { ReferralStatus, RelationType, ReminderStatus } from './enums';
 
 export interface ContactReferral {
   contact: Contact;
-  referral: Referral | null;
+  referral: Referral;
 }
 
 export interface CompanyPool {
