@@ -1,5 +1,17 @@
 import { ReferralStatus, RelationType, ReminderStatus } from './enums';
 
+export interface ContactReferral {
+  contact: Contact;
+  referral: Referral | null;
+}
+
+export interface CompanyPool {
+  companyName: string;
+  contactReferrals: ContactReferral[];
+  referralCount: number;
+  contactCount: number;
+}
+
 export interface Contact {
   id: string;
   name: string;

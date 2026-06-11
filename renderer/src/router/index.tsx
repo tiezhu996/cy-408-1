@@ -2,6 +2,7 @@ import { Layout, Menu, Typography } from 'antd';
 import { createHashRouter, Navigate, Outlet, useNavigate } from 'react-router-dom';
 import { Contacts } from '../pages/Contacts';
 import { ContactDetail } from '../pages/ContactDetail';
+import { CompanyPoolPage } from '../pages/CompanyPool';
 import { Dashboard } from '../pages/Dashboard';
 import { Graph } from '../pages/Graph';
 import { ReferralBoard } from '../pages/ReferralBoard';
@@ -19,6 +20,7 @@ function AppLayout() {
           items={[
             { key: '/dashboard', label: '仪表板' },
             { key: '/contacts', label: '联系人列表' },
+            { key: '/company-pool', label: '公司内推池' },
             { key: '/referrals', label: '内推看板' },
             { key: '/graph', label: '人脉图谱' }
           ]}
@@ -40,6 +42,7 @@ export const router = createHashRouter([
       { path: 'dashboard', element: <Dashboard /> },
       { path: 'contacts', element: <Contacts /> },
       { path: 'contacts/:id', element: <ContactDetail /> },
+      { path: 'company-pool', element: <CompanyPoolPage /> },
       { path: 'referrals', element: <ReferralBoard /> },
       { path: 'graph', element: <Graph /> }
     ]
